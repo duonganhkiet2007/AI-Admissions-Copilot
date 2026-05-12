@@ -11,8 +11,7 @@ Dưới đây là sơ đồ luồng hoạt động tổng thể của hệ thố
 ### Cấu trúc Code cốt lõi
 
 Cấu trúc các Class được triển khai trong hệ thống, phân chia theo từng giai đoạn xử lý trên sơ đồ:
-
-```text
+```
 UIT-AI-Admissions-Copilot
 ├── 1. Data Ingestion & Processing (Xử lý Dữ liệu)
 │   ├── Class SimpleLoader
@@ -39,17 +38,20 @@ UIT-AI-Admissions-Copilot
 │       ├── __init__()
 │       └── rerank()               # Kỹ thuật 3: Lọc tinh và tái xếp hạng bằng Deep Learning
 │
-├── 3.  LLM Integration (Chatbot)
+├── 3. AI Core (LLM & Web Search)
+│   ├── get_llm()                  # Tải và cấu hình mô hình Qwen 1.5B Instruct bằng HuggingFacePipeline
+│   └── search_web_tool            # Khởi tạo công cụ tra cứu Internet thời gian thực (Tavily Search API)
+│
+├── 4. LLM Integration (Chatbot)
 │   └── Class AdmissionsChatbot
 │       ├── __init__()
 │       ├── _get_web_context()     # Bổ trợ ngữ cảnh bằng Internet (Web Search)
-│       └── chat()                 # Kỹ thuật 4: Đưa Context và Query vào LLM (Qwen) sinh câu trả lời
+│       └── chat()                 # Kỹ thuật 4: Đưa Context và Query vào LLM sinh câu trả lời
 │
-└── 4. User Interface (Giao diện Gradio)
+└── 5. User Interface (Giao diện Gradio)
     ├── process_new_files()        # Upload tài liệu mới và cập nhật DB tự động
     └── respond()                  # Giao tiếp với người dùng
 ```
-
 ## Giao diện ChatBot 
 
 <div align="center">
