@@ -50,7 +50,7 @@ UIT-AI-Admissions-Copilot
     └── respond()                  # Giao tiếp với người dùng
 ```
 
-Giao diện ChatBot sau khi hoàn thành
+## Giao diện ChatBot 
 
 <div align="center">
   <img width="1918" height="873" alt="image" src="https://github.com/user-attachments/assets/ab52ab64-80ae-4ad8-ae42-8ce32b336aca" />
