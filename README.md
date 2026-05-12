@@ -39,7 +39,7 @@ UIT-AI-Admissions-Copilot
 │       ├── __init__()
 │       └── rerank()               # Kỹ thuật 3: Lọc tinh và tái xếp hạng bằng Deep Learning
 │
-├── 3. AI Agents & LLM Integration (Bộ脑 Chatbot)
+├── 3.  LLM Integration (Chatbot)
 │   └── Class AdmissionsChatbot
 │       ├── __init__()
 │       ├── _get_web_context()     # Bổ trợ ngữ cảnh bằng Internet (Web Search)
@@ -48,16 +48,29 @@ UIT-AI-Admissions-Copilot
 └── 4. User Interface (Giao diện Gradio)
     ├── process_new_files()        # Upload tài liệu mới và cập nhật DB tự động
     └── respond()                  # Giao tiếp với người dùng
+```
+
+Giao diện ChatBot sau khi hoàn thành
+
+<div align="center">
+  <img width="1918" height="873" alt="image" src="https://github.com/user-attachments/assets/ab52ab64-80ae-4ad8-ae42-8ce32b336aca" />
+</div>
+
 
 ---
 
 ## Tổng kết dự án (Project Summary)
 
 ### Chức năng chính
-Hệ thống là một trợ lý ảo tư vấn tuyển sinh thông minh, có khả năng ghi nhớ ngữ cảnh hội thoại để đưa ra phản hồi liên tục và phù hợp. Bên cạnh việc giải đáp chính xác dựa trên nguồn dữ liệu nội bộ chính thống, chatbot còn tích hợp khả năng tra cứu Web theo thời gian thực để cập nhật các thông tin xã hội (ví dụ: giá xăng, tin tức mới). Đặc biệt, hệ thống cho phép người dùng trực tiếp tải lên các file PDF mới để cập nhật và mở rộng kho tri thức một cách linh hoạt.
 
-###  Cải tiến kỹ thuật (Advanced RAG)
-Dự án được nâng cấp lên quy trình **Advanced RAG** với những cải tiến vượt trội so với các hệ thống truyền thống:
+* **Trợ lý ảo thông minh:** Hệ thống có khả năng ghi nhớ ngữ cảnh hội thoại để đưa ra phản hồi liên tục và phù hợp với nội dung trước đó.
+* **Tích hợp đa nguồn:** Bên cạnh việc giải đáp chính xác từ dữ liệu nội bộ chính thống, chatbot còn có khả năng tra cứu Web theo thời gian thực (ví dụ: giá xăng, tin tức mới) để bổ sung thông tin.
+* **Cập nhật tri thức động:** Cho phép người dùng trực tiếp tải lên các file PDF mới để mở rộng và cập nhật kho dữ liệu một cách linh hoạt.
+
+### Cải tiến kỹ thuật (Advanced RAG)
+
+Dự án được nâng cấp lên quy trình Advanced RAG với những cải tiến vượt trội so với các hệ thống truyền thống:
+
 * **Semantic Chunking:** Thay thế cho cách cắt văn bản theo độ dài cố định, giúp bảo toàn trọn vẹn ngữ cảnh và ý nghĩa của từng đoạn thông tin.
 * **Hybrid Retrieval:** Kết hợp sức mạnh của cả tìm kiếm theo ngữ nghĩa (Vector Search) và tìm kiếm theo từ khóa chính xác (BM25) để tối ưu hóa khả năng truy xuất.
-* **Cross-Encoder Re-ranker:** Tích hợp bộ lọc sâu sau bước truy xuất để chấm điểm lại mức độ liên quan, đảm bảo chỉ những thông tin chuẩn xác nhất mới được đưa vào mô hình ngôn ngữ lớn (LLM) để sinh câu trả lời, loại bỏ tối đa hiện tượng "ảo giác" (hallucination).
+* **Cross-Encoder Re-ranker:** Nó tự động chấm điểm độ liên quan trực tiếp giữa câu hỏi và tài liệu, qua đó loại bỏ thông tin nhiễu.
