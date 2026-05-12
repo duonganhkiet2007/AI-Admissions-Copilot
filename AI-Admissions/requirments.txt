@@ -1,0 +1,100 @@
+import re
+import glob
+import unicodedata
+from typing import List
+from tqdm import tqdm
+from langchain_chroma import Chroma
+from langchain_core.prompts import PromptTemplate
+from langchain_core.runnables import RunnablePassthrough
+from langchain_core.output_parsers import StrOutputParser
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+
+# --- Khối import để xử lý OCR và tìm kiếm ---
+import os
+import re
+import glob
+import unicodedata
+import numpy as np
+from typing import List, Any
+from tqdm import tqdm
+from google.colab import files
+from underthesea import sent_tokenize, word_tokenize
+from rank_bm25 import BM25Okapi
+from collections import defaultdict
+from langchain_chroma import Chroma
+from langchain_core.documents import Document
+from langchain_core.retrievers import BaseRetriever
+from pydantic import Field
+from pdf2image import convert_from_path
+import pytesseract
+from langchain_community.document_loaders import PyPDFLoader
+
+# --- Khối import cho phần Semantic Chunking  ---
+from langchain_openai import OpenAIEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
+import numpy as np
+
+# --- Khối import cho Reranker ---
+from sentence_transformers import CrossEncoder
+from langchain_core.documents import Document
+
+# --- Khối import cho Web Search bằng Tavily ---
+import os
+import getpass
+from langchain_tavily import TavilySearch
+
+# --- Khối import tạo Tool  ---
+from langchain_core.tools import Tool
+
+# --- Khối import cho Dynamic RAG Chatbot đa luồng  ---
+import concurrent.futures
+from langchain_community.tools.tavily_search import TavilySearchResults
+from langchain_core.documents import Document
+from langchain_chroma import Chroma
+from langchain_core.prompts import PromptTemplate
+
+# --- Khối import để tải mô hình Qwen ---
+import torch
+import concurrent.futures
+from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
+from langchain_huggingface import HuggingFacePipeline
+from langchain_community.tools.tavily_search import TavilySearchResults
+from langchain_core.documents import Document
+from langchain_chroma import Chroma
+
+# --- Khối import cho giao diện Gradio ---
+import gradio as gr
+import os
+import traceback
+
+# --- Khối cài đặt hệ sinh thái LangChain và tiện ích ---
+!pip install -q \
+    "langchain>=0.2.0" \
+    "langchain-core>=0.2.0" \
+    "langchain-community>=0.1.0" \
+    "langchain-text-splitters>=0.2.0" \
+    "langchain-huggingface>=0.0.1" \
+    "chromadb>=0.5.0" \
+    "langchain-chroma>=0.2.0" \
+    "pypdf" \
+    "openai>=1.0.0" \
+    "langchain-openai>=0.1.0" \
+    "gdown" \
+    "tiktoken"
+
+# --- Khối cài đặt thư viện NLP, OCR và hệ thống Linux ---
+!pip install underthesea
+!pip install rank_bm25
+!apt-get update
+!apt-get install -y poppler-utils # Required for pdf2image
+!apt-get install -y tesseract-ocr # Required for pytesseract
+!apt-get install -y tesseract-ocr-vie # Install Vietnamese language pack for Tesseract
+!pip install pdf2image pytesseract
+
+# --- Khối cài đặt thư viện mô hình Sentence Transformers ---
+!pip install -q sentence-transformers
+
+# --- Khối cài đặt công cụ web search Tavily ---
+!pip install -q langchain-tavily
+
