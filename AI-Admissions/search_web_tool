@@ -1,0 +1,11 @@
+import os
+import getpass
+
+!pip install -q langchain-tavily
+if "TAVILY_API_KEY" not in os.environ:
+    os.environ["TAVILY_API_KEY"] = getpass.getpass("Enter_TAVILY_API_KEY")
+from langchain_tavily import TavilySearch
+search_wed_tool = TavilySearch(
+    max_results=3,
+    topic="general"
+)
