@@ -6,7 +6,7 @@ try:
             internal_vdb=hybrid_vector_db.vector_db,
             embeddings=embeddings
         )
-        print("✅ Rag bot đã được khởi tạo mặc định.")
+        print(" Rag bot đã được khởi tạo mặc định.")
     else:
         rag_bot = None
 except Exception as e:
