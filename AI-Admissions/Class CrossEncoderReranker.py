@@ -4,7 +4,7 @@ class CrossEncoderReranker:
         # Sử dụng CrossEncoder từ thư viện sentence-transformers
         self.model = CrossEncoder(model_name, max_length=512)
         self.top_k = top_k
-        print(f"✅ Cross-Encoder Reranker đã sẵn sàng, top_k={top_k}.")
+        print(f" Cross-Encoder Reranker đã sẵn sàng, top_k={top_k}.")
 
     def rerank(self, query: str, documents: list[Document]) -> list[Document]:
         if not documents:
