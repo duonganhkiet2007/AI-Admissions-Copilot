@@ -1,6 +1,6 @@
 ## Kiến trúc Hệ thống (System Architecture)
 
-Dưới đây là sơ đồ luồng hoạt động tổng thể của hệ thống UIT-AI-Admissions-Copilot, từ giai đoạn tiền xử lý dữ liệu (Offline Ingestion) đến quy trình truy vấn thời gian thực (Online Query Flow):
+Dưới đây là sơ đồ luồng hoạt động tổng thể của hệ thống UIT-AI-Admissions-Copilot, từ giai đoạn tiền xử lý dữ liệu đến quy trình truy vấn thời gian thực:
 
 <div align="center">
   <img src="https://github.com/user-attachments/assets/383910c9-60cc-4dc4-9e07-7a3722765620" alt="Kiến trúc ChatBot UIT" width="100%">
@@ -15,28 +15,28 @@ Cấu trúc các Class được triển khai trong hệ thống, phân chia theo
 UIT-AI-Admissions-Copilot
 ├── 1. Data Ingestion & Processing (Xử lý Dữ liệu)
 │   ├── Class SimpleLoader
-│   │   ├── load_pdf()             # Đọc file PDF bằng OCR (Tesseract)
+│   │   ├── load_pdf()             # Đọc file PDF bằng OCR 
 │   │   └── load_dir()             # Đọc toàn bộ thư mục PDF
 │   │
 │   └── Class SemanticChunker
 │       ├── __init__()
 │       ├── _split_into_sentences()
-│       ├── _calculate_cosine_similarity()
+│       ├── _calculate_cosine_similarity()    # Cắt văn bản thông minh theo ngữ nghĩa
 │       ├── _chunk_by_semantic_similarity()
-│       └── split()                # Cắt văn bản thông minh theo ngữ nghĩa (Kỹ thuật 1)
+│       └── split()                 
 │
 ├── 2. Database & Retrieval (Lưu trữ & Truy xuất)
 │   ├── Class HybridVectorDB
-│   │   ├── __init__()             # Khởi tạo DB Lai: ChromaDB (Vector) & BM25 (Keyword)
+│   │   ├── __init__()             # Khởi tạo DB: ChromaDB (Vector) & BM25 (Keyword)
 │   │   └── get_retriever()
 │   │
 │   ├── Class HybridRetriever
-│   │   ├── _get_relevant_documents()  # Kỹ thuật 2: Truy xuất hỗn hợp (Vector + BM25)
+│   │   ├── _get_relevant_documents()  # Truy xuất hỗn hợp (Vector + BM25)
 │   │   └── _reciprocal_rank_fusion()  # Trộn và xếp hạng kết quả bằng thuật toán RRF
 │   │
 │   └── Class CrossEncoderReranker
 │       ├── __init__()
-│       └── rerank()               # Kỹ thuật 3: Lọc tinh và tái xếp hạng bằng Deep Learning
+│       └── rerank()               # Lọc tinh và tái xếp hạng 
 │
 ├── 3. AI Core (LLM & Web Search)
 │   ├── get_llm()                  # Tải và cấu hình mô hình Qwen 1.5B Instruct bằng HuggingFacePipeline
@@ -46,7 +46,7 @@ UIT-AI-Admissions-Copilot
 │   └── Class AdmissionsChatbot
 │       ├── __init__()
 │       ├── _get_web_context()     # Bổ trợ ngữ cảnh bằng Internet (Web Search)
-│       └── chat()                 # Kỹ thuật 4: Đưa Context và Query vào LLM sinh câu trả lời
+│       └── chat()                 # Đưa Context và Query vào LLM sinh câu trả lời
 │
 └── 5. User Interface (Giao diện Gradio)
     ├── process_new_files()        # Upload tài liệu mới và cập nhật DB tự động
