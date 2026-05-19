@@ -66,13 +66,39 @@ UIT-AI-Admissions-Copilot
 ### Chức năng chính
 
 * **Trợ lý ảo thông minh:** Hệ thống có khả năng ghi nhớ ngữ cảnh hội thoại để đưa ra phản hồi liên tục và phù hợp với nội dung trước đó.
-* **Tích hợp đa nguồn:** Bên cạnh việc giải đáp chính xác từ dữ liệu nội bộ chính thống, chatbot còn có khả năng tra cứu Web theo thời gian thực (ví dụ: giá xăng, tin tức mới) để bổ sung thông tin.
+* **Tích hợp đa nguồn:** Bên cạnh việc giải đáp chính xác từ dữ liệu nội bộ chính thống, chatbot còn có khả năng tra cứu Web theo thời gian thực (ví dụ: giá xăng, tin tức mới) để bổ sung thông tin, cho người dùng upload thêm dữ liệu.
 * **Cập nhật tri thức động:** Cho phép người dùng trực tiếp tải lên các file PDF mới để mở rộng và cập nhật kho dữ liệu một cách linh hoạt.
 
 ### Cải tiến kỹ thuật (Advanced RAG)
 
 Dự án được nâng cấp lên quy trình Advanced RAG với những cải tiến vượt trội so với các hệ thống truyền thống:
 
-* **Semantic Chunking:** Thay thế cho cách cắt văn bản theo độ dài cố định, giúp bảo toàn trọn vẹn ngữ cảnh và ý nghĩa của từng đoạn thông tin.
-* **Hybrid Retrieval:** Kết hợp sức mạnh của cả tìm kiếm theo ngữ nghĩa (Vector Search) và tìm kiếm theo từ khóa chính xác (BM25) để tối ưu hóa khả năng truy xuất.
-* **Cross-Encoder Re-ranker:** Nó tự động chấm điểm độ liên quan trực tiếp giữa câu hỏi và tài liệu, qua đó loại bỏ thông tin nhiễu.
+* **Semantic Chunking:**
+   Khắc phục nhược điểm của phương pháp cắt văn bản theo độ dài cố định (fixed-size chunking) truyền thống. Kỹ thuật này sử dụng mô hình embedding để đánh giá độ tương đồng ngữ nghĩa giữa các câu liền kề, từ đó tự động xác định ranh giới và nhóm các nội dung cùng chủ đề lại với nhau.
+
+   Việc này giúp bảo toàn trọn vẹn ngữ cảnh, tránh tình trạng một ý tưởng bị cắt xén giữa chừng, đảm bảo LLM luôn nhận được luồng thông tin đầu vào đầy đủ và chuẩn xác nhất.
+
+---
+  <div align="center">
+  <img width="100%" alt="Mô tả ảnh của bạn ở đây" src="https://github.com/user-attachments/assets/6c2c80c6-5bd7-4ac1-be13-b765c5349ff5" />
+</div>
+
+---
+* **Hybrid Retrieval:**
+  Là sự kết hợp hoàn hảo giữa tìm kiếm ngữ nghĩa (Vector Search) và tìm kiếm từ khóa (BM25). Phương pháp này khắc phục triệt để nhược điểm thiếu chính xác với từ khóa đặc thù/viết tắt của Vector Search và kém hiểu ngữ cảnh của BM25.
+  
+  Kết quả từ hai luồng sau đó được trộn và tối ưu hóa bằng thuật toán Reciprocal Rank Fusion (RRF), đảm bảo tài liệu trả về vừa đúng ý định người dùng, vừa chuẩn xác từng thuật ngữ chuyên ngành.
+---
+
+<img width="1200" height="655" alt="image" src="https://github.com/user-attachments/assets/373a374c-61c5-41e3-b667-d850eec81656" />
+
+---
+* **Cross-Encoder Re-ranker:**
+  Thay vì chỉ đánh giá vector độc lập, mô hình Cross-Encoder sẽ ghép cặp trực tiếp "Câu hỏi" và "Tài liệu" để phân tích sự chú ý (cross-attention) giữa chúng.
+
+  Quá trình này giúp tái xếp hạng (re-rank) toàn bộ kết quả, loại bỏ triệt để các thông tin nhiễu có thể lọt qua ở bước truy xuất ban đầu, đảm bảo LLM chỉ nhận được những ngữ cảnh thực sự chất lượng.
+---
+
+<img width="1400" height="411" alt="image" src="https://github.com/user-attachments/assets/37ee7ab5-b965-42d6-947f-38c064360146" />
+
+---
